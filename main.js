@@ -99,19 +99,67 @@
 // console.log(str.search(regExp));
 
 // y;
-let str = 'some my text';
-let regExp = /\w+/g;
-console.log(regExp.lastIndex);
-regExp.lastIndex = 4;
-console.log(regExp.lastIndex);
+// let str = 'some my text';
+// let regExp = /\w+/g;
+// console.log(regExp.lastIndex);
+// regExp.lastIndex = 4;
+// console.log(regExp.lastIndex);
 
 
-let word1 = regExp.exec(str);
+// let word1 = regExp.exec(str);
 // let word1 = str.match(regExp);
-console.log(word1, regExp.lastIndex);
+// console.log(word1, regExp.lastIndex);
 
 // let word2 = regExp.exec(str);
 // console.log(word2, regExp.lastIndex);
 
 // let word3 = regExp.exec(str);
 // console.log(word3, regExp.lastIndex);
+
+// (?<date>\d{2})
+
+// let loginRegExp = /^(?<login>[a-zA-Z]{2,20})$/;
+// let passwordRegExp = /^(?<password>[a-zA-Z0-9]{8,15})$/;
+// let emailRegExp = /(?<email>\w*\d*\.*@\w*.\w*)/;
+
+let getId = (id) => document.getElementById(id);
+
+const arr = [];
+
+// btn Add user
+        let render = function () {
+                        let td1 = document.createElement('td');
+                td1.innerHTML = arr.length;
+                let tdLogin = document.createElement("td");
+                tdLogin.innerHTML = arr[0].userLogin;
+                let td3 = document.createElement("td");
+                td3.innerHTML = arr[0].userPassword;
+                let td4 = document.createElement("td");
+                td4.innerHTML = arr[0].userEmail;
+                let td5 = document.createElement("td");
+                td5.innerHTML = arr.length;
+                let td6 = document.createElement("td");
+                td6.innerHTML = arr.length;
+                        console.log(tdLogin);
+                        console.log(td3);
+                        console.log(td4);
+        }
+        
+getId("button").onclick = function () {
+        let login = getId("login").value;
+        let password = getId("password").value;
+        let email = getId("email").value;
+        let obj = {
+                userLogin: login,
+                userPassword: password,
+                userEmail: email,
+        };
+
+        arr.push(obj);    
+        render();
+        getId("login").value = '';
+        getId("password").value = '';
+        getId("email").value = '';
+};
+
+console.log(arr);
