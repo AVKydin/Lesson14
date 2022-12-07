@@ -122,40 +122,88 @@
 // let passwordRegExp = /^(?<password>[a-zA-Z0-9]{8,15})$/;
 // let emailRegExp = /(?<email>\w*\d*\.*@\w*.\w*)/;
 
+
 let getId = (id) => document.getElementById(id);
+let arr = [];
 
-const arr = [];
 
-// btn Add user
-        let render = function () {
-                        let td1 = document.createElement('td');
-                td1.innerHTML = arr.length;
-                let tdLogin = document.createElement("td");
-                tdLogin.innerHTML = arr[0].userLogin;
-                let td3 = document.createElement("td");
-                td3.innerHTML = arr[0].userPassword;
-                let td4 = document.createElement("td");
-                td4.innerHTML = arr[0].userEmail;
-                let td5 = document.createElement("td");
-                td5.innerHTML = arr.length;
-                let td6 = document.createElement("td");
-                td6.innerHTML = arr.length;
-                        console.log(tdLogin);
-                        console.log(td3);
-                        console.log(td4);
+let addTr = function () {
+        let tr = document.createElement("tr");
+        getId("tableBody").appendChild(tr);
+
+        for (let j = 0; j < 6; j++) {
+                let td = document.createElement("td");
+                tr.appendChild(td);
         }
+}
+
+
+//     render()    
+let render = function () {
+        // addTr();
+
+        let tr = document.createElement("tr");
+        getId("tableBody").appendChild(tr);
+
+let i = arr.length - 1;
+
+        for (let j = 0; j < 6; j++) {
+          let td = document.createElement("td");
+                tr.appendChild(td);
+        }
+
+        let row = tr.childNodes;
+
+        for (let k = 1; k < row.length+1; k++){
+               row[k - 1].innerHTML = arr[k - 1].userLogin; 
+        }
+
         
+
+        // let td1 = document.createElement('td');
+        // document.querySelector('.tr').appendChild(td1);
+        // td1.innerHTML = i+1;
+
+        // let tdLogin = document.createElement("td");
+        // document.querySelector(".tr").appendChild(tdLogin);
+        // tdLogin.innerHTML = arr[i].userLogin;
+
+        // let tdPassword = document.createElement("td");
+        // document.querySelector(".tr").appendChild(tdPassword);
+        // tdPassword.innerHTML = arr[i].userPassword;
+
+        // let tdEmail = document.createElement("td");
+        // document.querySelector(".tr").appendChild(tdEmail);
+        // tdEmail.innerHTML = arr[i].userEmail; 
+
+        // let tdrEmai = document.createElement("td");
+        // document.querySelector(".tr").appendChild(tdrEmai);
+        // tdrEmai.innerHTML = arr[i].userEmail;  
+
+        // let tdrEma = document.createElement("td");
+        // document.querySelector(".tr").appendChild(tdrEma);
+        // tdrEma.innerHTML = arr[i].userEmail;   
+        
+        // let br = document.createElement("br");
+        // getId("tableBody").appendChild(br);
+
+}
+
+
+// btn Add user        
 getId("button").onclick = function () {
         let login = getId("login").value;
         let password = getId("password").value;
         let email = getId("email").value;
+        
         let obj = {
-                userLogin: login,
-                userPassword: password,
-                userEmail: email,
+                userLogin: `${login}`,
+                userPassword: `${password}`,
+                userEmail: `${email}`,
         };
-
-        arr.push(obj);    
+        arr.push(obj);
+        console.log(arr);
+            
         render();
         getId("login").value = '';
         getId("password").value = '';
