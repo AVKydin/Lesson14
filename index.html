@@ -11,14 +11,15 @@
 
     <div id="container">
         <div id="left">
-            <form action="" id="form">
+            <form action="" id="form" name="form">
                 <h3>Login</h3>
                 <input type="text" name="login" id="login">
                 <h3>Password</h3>
                 <input type="password" name="password" id="password">
                 <h3>Email address</h3>
                 <input type="text" name="email" id="email">
-                <input type="button" name="button" id="button" value="Add user">
+                <input type="button" name="button" class="btnAdd btn" id="button" value="Add user">
+                <input type="button" name="button" hidden class="btnUserEdit btn" id="buttonEdit" value="Edit user">
             </form>
         </div>
         <div id="right">
@@ -38,6 +39,11 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="container" id="incorrect" hidden>
+        <p id="p">Введено некоректні дані. Будьте уважніші! <br>
+        P.S.: спробувати ще раз - клікніть на текст</p>
     </div>
 
     <script src="./main.js"></script>

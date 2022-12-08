@@ -27,19 +27,27 @@ input{
     padding: 5px;
 }
 
-input[type=button]{
+.btn{
     width: 70px;
     height: 40px;
-    background-color: #fff;
     color: green;
     border: 1px solid green;
+}
+
+.btnAdd,
+.btnUserEdit{
+    background-color: #fff;
     transition: 0.5s;
 }
 
-input[type=button]:hover{
-    cursor: pointer;
+.btnAdd:hover,
+.btnUserEdit:hover{
     background-color: green;
-    color: #fff;
+}
+
+.btn:hover{
+    cursor: pointer;
+    color: blue;
     box-shadow: 0px 0px 55px 10px rgba(14, 233, 6, 0.5);
 }
 
@@ -57,7 +65,7 @@ td{
     width: 100px;
     height: 40px;
     text-align: center;
-    background-color: aqua;
+    border: 1px solid pink;
 }
 
 #tableBody{
@@ -69,4 +77,22 @@ td{
 .tr{
     width: 600px;
     margin-left: 50px;
+}
+
+.btnEdit{
+    background-color: yellow;
+}
+
+.btnDelete{
+    background-color: red;
+}
+
+#incorrect{
+    width: 1300px;
+    height: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: red;
+    font-size: 54px;
+    
 }

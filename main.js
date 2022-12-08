@@ -117,97 +117,124 @@
 // console.log(word3, regExp.lastIndex);
 
 // (?<date>\d{2})
-
-// let loginRegExp = /^(?<login>[a-zA-Z]{2,20})$/;
-// let passwordRegExp = /^(?<password>[a-zA-Z0-9]{8,15})$/;
-// let emailRegExp = /(?<email>\w*\d*\.*@\w*.\w*)/;
+// /^[a-zA-Z0-9\.\_\-]{4,16}$/;
 
 
+let loginRegExp = /^[a-zA-Z]{4,16}$/;
+let passwordRegExp = /^[a-zA-Z0-9\.\_\-]{4,16}$/;   
+let emailRegExp = /\w*\d*\.*@\w*.\w*/;
 let getId = (id) => document.getElementById(id);
-let arr = [];
+let login;
+let password;
+let email;
+let user;
+let arrUser = [];
+let tr;
+let edit;
+let userIndex;
 
-
-let addTr = function () {
-        let tr = document.createElement("tr");
-        getId("tableBody").appendChild(tr);
-
-        for (let j = 0; j < 6; j++) {
-                let td = document.createElement("td");
-                tr.appendChild(td);
-        }
-}
-
-
-//     render()    
+//  function   render()    
 let render = function () {
-        // addTr();
+        getId("tableBody").innerHTML = '';
 
-        let tr = document.createElement("tr");
-        getId("tableBody").appendChild(tr);
-
-let i = arr.length - 1;
-
-        for (let j = 0; j < 6; j++) {
-          let td = document.createElement("td");
-                tr.appendChild(td);
+        for (let i = 0; i < arrUser.length; i++) {
+          tr = document.createElement("tr");
+          tr.innerHTML = `<td>${i + 1}</td>
+                            <td>${arrUser[i].userLogin}</td>
+                            <td>${arrUser[i].userPassword}</td>
+                            <td>${arrUser[i].userEmail}</td>
+                            <td><input type='button' id='btnEdit' class='btnEdit btn' name='edit' value='Edit'></td>
+                            <td><input type='button' id='btnDelete' class='btnDelete btn' name='delete' value='Delete'></td>`;
+          getId("tableBody").append(tr);
         }
-
-        let row = tr.childNodes;
-
-        for (let k = 1; k < row.length+1; k++){
-               row[k - 1].innerHTML = arr[k - 1].userLogin; 
-        }
-
-        
-
-        // let td1 = document.createElement('td');
-        // document.querySelector('.tr').appendChild(td1);
-        // td1.innerHTML = i+1;
-
-        // let tdLogin = document.createElement("td");
-        // document.querySelector(".tr").appendChild(tdLogin);
-        // tdLogin.innerHTML = arr[i].userLogin;
-
-        // let tdPassword = document.createElement("td");
-        // document.querySelector(".tr").appendChild(tdPassword);
-        // tdPassword.innerHTML = arr[i].userPassword;
-
-        // let tdEmail = document.createElement("td");
-        // document.querySelector(".tr").appendChild(tdEmail);
-        // tdEmail.innerHTML = arr[i].userEmail; 
-
-        // let tdrEmai = document.createElement("td");
-        // document.querySelector(".tr").appendChild(tdrEmai);
-        // tdrEmai.innerHTML = arr[i].userEmail;  
-
-        // let tdrEma = document.createElement("td");
-        // document.querySelector(".tr").appendChild(tdrEma);
-        // tdrEma.innerHTML = arr[i].userEmail;   
-        
-        // let br = document.createElement("br");
-        // getId("tableBody").appendChild(br);
-
 }
 
 
 // btn Add user        
-getId("button").onclick = function () {
-        let login = getId("login").value;
-        let password = getId("password").value;
-        let email = getId("email").value;
+getId("button").onclick = function add() {
         
-        let obj = {
-                userLogin: `${login}`,
-                userPassword: `${password}`,
-                userEmail: `${email}`,
-        };
-        arr.push(obj);
-        console.log(arr);
-            
-        render();
-        getId("login").value = '';
-        getId("password").value = '';
-        getId("email").value = '';
+        if (validation() == 'ok!') {
+                login = getId("login").value;
+                password = getId("password").value;
+                email = getId("email").value;
+
+                user = {
+                        userLogin: `${login}`,
+                        userPassword: `${password}`,
+                        userEmail: `${email}`,
+                };
+                arrUser.push(user);
+
+                render();
+                document.forms.form.reset();
+        }
+        
 };
 
-console.log(arr);
+// incorrect data
+
+getId("p").onclick = function () {
+        getId("left").hidden = false;
+        getId("right").hidden = false;
+        getId("incorrect").hidden = true;
+}
+
+//btn Edit or Delete;
+
+getId("tableBody").onclick = function (e) {
+        e.target.classList.contains("btnEdit") ? userEdit(e) : e.target.classList.contains("btnDelete") ? userDelete(e) : 0;
+};
+
+// function Delete;
+
+function userDelete(e) {
+        let index = e.target.parentElement.parentElement.firstElementChild.textContent - 1;
+        arrUser.splice(index, 1);
+        console.log(index);
+        render();
+}
+
+// function Edit;
+
+function userEdit(e) {
+        userIndex = e.target.parentElement.parentElement.firstElementChild.textContent - 1;
+        edit = arrUser[userIndex];
+        getId("login").value = edit.userLogin;
+        getId("password").value = edit.userPassword;
+        getId("email").value = edit.userEmail;
+        getId("button").hidden = true;
+        getId("buttonEdit").hidden = false;
+        e.target.parentElement.style.background = "grey";
+    
+}
+
+// btn userEdit;
+
+getId("buttonEdit").onclick = function saveEditUser() {
+        if (validation() == "ok!") {
+                edit.userLogin = getId("login").value;
+                edit.userPassword = getId("password").value;
+                edit.userEmail = getId("email").value;
+                getId("button").hidden = false;
+                getId("buttonEdit").hidden = true;
+                console.log(edit);
+                render();
+                document.forms.form.reset();
+        }
+};
+
+//  validation
+
+let validation = function () {
+        loginReg = loginRegExp.test(getId("login").value);
+        passwordReg = passwordRegExp.test(getId("password").value);
+        emailReg = emailRegExp.test(getId("email").value);
+        
+        if (loginReg && passwordReg && emailReg) {
+                return 'ok!'
+        } else {
+          getId("left").hidden = true;
+          getId("right").hidden = true;
+          getId("incorrect").hidden = false;
+        }
+}
